@@ -19,7 +19,7 @@ namespace WebAppEmp.Controllers
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                SqlDataAdapter sqlDA = new SqlDataAdapter("SELECT Employees.EmployeeId, Employees.Surname, Employees.Name, Employees.Patronymic, Employees.StartDate, Employees.Post, Companies.Name FROM Employees INNER JOIN Companies ON Employees.CompanyId=Companies.CompanyId", sqlCon);
+                SqlDataAdapter sqlDA = new SqlDataAdapter("SELECT Employees.EmployeeId, Employees.Surname, Employees.Name, Employees.Patronymic, Employees.StartDate, Employees.Post, Companies.CompanyName FROM Employees INNER JOIN Companies ON Employees.CompanyId=Companies.CompanyId", sqlCon);
                 sqlDA.Fill(dtblEmployees);
             }
             return View(dtblEmployees);
@@ -28,6 +28,24 @@ namespace WebAppEmp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            string line = "";
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "Select CompanyName From Companies";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                SqlDataReader Reader = sqlCmd.ExecuteReader();
+                while (Reader.Read())
+                {
+                    string s = Reader.GetString(0);
+                    line += s + ',';
+                }
+                Reader.Close();
+                sqlCon.Close();
+            }
+
+            ViewBag.Companies = line.Split(',').ToList();
+
             return View(new EmployeeModel());
         }
 
@@ -36,6 +54,7 @@ namespace WebAppEmp.Controllers
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
+                int ComId = 0;
                 sqlCon.Open();
                 string query = "INSERT INTO Employees VALUES(@Surname, @Name, @Patronymic, @StartDate, @Post, @CompanyId)";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
@@ -44,7 +63,17 @@ namespace WebAppEmp.Controllers
                 sqlCmd.Parameters.AddWithValue("@Patronymic", employeeModel.Patronymic);
                 sqlCmd.Parameters.AddWithValue("@StartDate", employeeModel.StartDate);
                 sqlCmd.Parameters.AddWithValue("@Post", employeeModel.Post);
-                sqlCmd.Parameters.AddWithValue("@CompanyId",employeeModel.CompanyId);
+
+                string query1 = String.Format("Select CompanyId From Companies WHERE CompanyName=N'{0}'", employeeModel.CompanyId);
+                SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
+                SqlDataReader Reader = sqlCmd1.ExecuteReader();
+                while (Reader.Read())
+                {
+                    ComId = Reader.GetInt32(0);
+                }
+                Reader.Close();
+
+                sqlCmd.Parameters.AddWithValue("@CompanyId", ComId);
                 sqlCmd.ExecuteNonQuery();
             }
             return RedirectToAction("Index");
@@ -58,7 +87,7 @@ namespace WebAppEmp.Controllers
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "SELECT * FROM Employees WHERE EmployeeId=@EmployeeId";
+                string query = "SELECT Employees.EmployeeId, Employees.Surname, Employees.Name, Employees.Patronymic, Employees.StartDate, Employees.Post, Companies.CompanyName  FROM Employees INNER JOIN Companies ON Employees.CompanyId=Companies.CompanyId AND EmployeeId=@EmployeeId";
                 SqlDataAdapter sqlDA = new SqlDataAdapter(query, sqlCon);
                 sqlDA.SelectCommand.Parameters.AddWithValue(@"EmployeeId", id);
                 sqlDA.Fill(dtblEmployee);
@@ -71,7 +100,7 @@ namespace WebAppEmp.Controllers
                 epmloyeeModel.Patronymic = dtblEmployee.Rows[0][3].ToString();
                 epmloyeeModel.StartDate = Convert.ToDateTime(dtblEmployee.Rows[0][4].ToString());
                 epmloyeeModel.Post = dtblEmployee.Rows[0][5].ToString();
-                epmloyeeModel.CompanyId = Convert.ToInt32(dtblEmployee.Rows[0][6].ToString());
+                epmloyeeModel.CompanyId = dtblEmployee.Rows[0][6].ToString();
                 return View(epmloyeeModel);
             }
             else
@@ -85,6 +114,7 @@ namespace WebAppEmp.Controllers
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
+                int ComId = 0;
                 sqlCon.Open();
                 string query = "UPDATE Employees SET Surname=@Surname, Name=@Name, Patronymic=@Patronymic, StartDate=@StartDate, Post=@Post, CompanyId=@CompanyId WHERE EmployeeId=@EmployeeId";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
@@ -94,13 +124,23 @@ namespace WebAppEmp.Controllers
                 sqlCmd.Parameters.AddWithValue("@Patronymic", employeeModel.Patronymic);
                 sqlCmd.Parameters.AddWithValue("@StartDate", employeeModel.StartDate);
                 sqlCmd.Parameters.AddWithValue("@Post", employeeModel.Post);
-                sqlCmd.Parameters.AddWithValue("@CompanyId", employeeModel.CompanyId);
+
+                string query1 = String.Format("Select CompanyId From Companies WHERE CompanyName=N'{0}'", employeeModel.CompanyId);
+                SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
+                SqlDataReader Reader = sqlCmd1.ExecuteReader();
+                while (Reader.Read())
+                {
+                    ComId = Reader.GetInt32(0);
+                }
+                Reader.Close();
+
+                sqlCmd.Parameters.AddWithValue("@CompanyId", ComId);
+
                 sqlCmd.ExecuteNonQuery();
             }
             return RedirectToAction("Index");
         }
 
-        // GET: Employee/Delete/5
         public ActionResult Delete(int id)
         {
             using (SqlConnection sqlCon = new SqlConnection(connectionString))

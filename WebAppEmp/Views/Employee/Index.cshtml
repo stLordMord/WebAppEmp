@@ -13,23 +13,23 @@
         <th>Отчество</th>
         <th>Дата приема</th>
         <th>Должность</th>
-        <th>№ Компании</th>
+        <th>Компания</th>
         <th></th>
         <th></th>
     </tr>
     @for (int i = 0; i < Model.Rows.Count; i++)
     {
-<tr>
-    <td>@Model.Rows[i][0]</td>
-    <td>@Model.Rows[i][1]</td>
-    <td>@Model.Rows[i][2]</td>
-    <td>@Model.Rows[i][3]</td>
-    <td>@Model.Rows[i][4]</td>
-    <td>@Model.Rows[i][5]</td>
-    <td>@Model.Rows[i][6]</td>
-    <td><a href="@Url.Action("Edit", "Employee", new { @id=Model.Rows[i][0]})">Изменить</a></td>
-    <td><a href="@Url.Action("Delete", "Employee", new { @id=Model.Rows[i][0]})">Удалить</a></td>
-</tr>
+        <tr>
+            <td>@Model.Rows[i][0]</td>
+            <td>@Model.Rows[i][1]</td>
+            <td>@Model.Rows[i][2]</td>
+            <td>@Model.Rows[i][3]</td>
+            <td>@Model.Rows[i][4]</td>
+            <td>@Model.Rows[i][5]</td>
+            <td>@Model.Rows[i][6]</td>
+            <td><a href="@Url.Action("Edit", "Employee", new { @id=Model.Rows[i][0]})">Изменить</a></td>
+            <td><a href="@Url.Action("Delete", "Employee", new { @id=Model.Rows[i][0]})">Удалить</a></td>
+        </tr>
     }
 </table>
 

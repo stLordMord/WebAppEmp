@@ -3,36 +3,45 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Ввод компании</h2>
+<h2>Ввод компании</h2> <hr />
 
 @using (Html.BeginForm())
 {
 <div class="form-horizontal">
+    @Html.HiddenFor(model => model.CompanyId)
 
     <div class="form-group">
-        <div class = "control-label col-md-2" > <b>Название</b></div>
+        <div class="control-label col-md-2"> <b>Название</b></div>
         <div class="col-md-10">
-            <input type="number" name="Name" />
+            <input type="text" name="CompanyName" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="control-label col-md-2"> <b>Размер</b></div>
         <div class="col-md-10">
-            <input type="text" name="Size" />
+            <input type="number" name="Size" min="1" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="control-label col-md-2"> <b>ОПФ</b></div>
         <div class="col-md-10">
-            <input type="text" name="Form" />
+            <select name="Form">
+                <option disabled>Выберите ОПФ</option>
+                <option value="Индивидуальный предприниматель">ИП</option>
+                <option value="Общество с ограниченной ответственностью">ООО</option>
+                <option value="Общество с дополнительной ответственностью">ОДО</option>
+                <option value="Открытое акционерное общество">ОАО</option>
+                <option value="Закрытое акционерное общество">ЗАО</option>
+                <option value="Производственный кооператив">ПК</option>
+            </select>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Создать" class="btn btn-default" />
         </div>
     </div>
 

@@ -1,65 +1,75 @@
 ﻿@model WebAppEmp.Models.EmployeeModel
-
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Ввод работника</h2>
 
-@using (Html.BeginForm()) 
-{    
-<div class="form-horizontal">
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
 
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>Фамилия</b></div>
-        <div class="col-md-10">
-            <input type="text" name="Surname" />
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Фамилия</b></div>
+            <div class="col-md-10">
+                <input type="text" name="Surname" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Имя</b></div>
+            <div class="col-md-10">
+                <input type="text" name="Name" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Отчество</b></div>
+            <div class="col-md-10">
+                <input type="text" name="Patronymic" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Дата приема</b></div>
+            <div class="col-md-10">
+                <input type="date" name="Startdate" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Должность</b></div>
+            <div class="col-md-10">
+                <select name="Post">
+                    <option disabled>Выберите должность</option>
+                    <option value="Разработчик ">Разработчик </option>
+                    <option value="Тестировщик ">Тестировщик </option>
+                    <option value="Бизнес-аналитик">Бизнес-аналитик </option>
+                    <option value="Менеджер">Менеджер</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="control-label col-md-2"> <b>Компания</b></div>
+            <div class="col-md-10">
+                <select name="CompanyName">
+                    @foreach (string company in ViewBag.Companies)
+                    {
+                        <option>@company</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>Имя</b></div>
-        <div class="col-md-10">
-            <input type="text" name="Name" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>Отчество</b></div>
-        <div class="col-md-10">
-            <input type="text" name="Patronymic" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>Дата приема</b></div>
-        <div class="col-md-10">
-            <input type="datetime" name="Startdate" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>Должность</b></div>
-        <div class="col-md-10">
-            <input type="text" name="Post" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="control-label col-md-2"> <b>IdCompany</b></div>
-        <div class="col-md-10">
-            <input type="text" name="CompanyId" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Отмена", "Index")
 </div>

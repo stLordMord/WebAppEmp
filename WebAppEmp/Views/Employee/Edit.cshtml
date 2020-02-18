@@ -10,57 +10,58 @@
 {    
 <div class="form-horizontal">
     @Html.HiddenFor(model => model.EmployeeId)
+
     <div class="form-group">
-        @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Surname</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Surname)
-            @Html.ValidationMessageFor(model => model.Surname)
+            <input name="Surname" value="@Model.Surname" />
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Name</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+            <input name="Name" value="@Model.Name" />
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Patronymic, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Patronymic</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Patronymic)
-            @Html.ValidationMessageFor(model => model.Patronymic)
+            <input name="Patronymic" value="@Model.Patronymic" />
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Дата приема</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
+            <input type="datetime" name="@Model.StartDate" />
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Post, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Должность</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Post)
-            @Html.ValidationMessageFor(model => model.Post)
+            <select name="Post" autofocus="@Model.Post">
+                <option disabled>Выберите должность</option>
+                <option value="Разработчик ">Разработчик </option>
+                <option value="Тестировщик ">Тестировщик </option>
+                <option value="Бизнес-аналитик">Бизнес-аналитик </option>
+                <option value="Менеджер">Менеджер</option>
+            </select>
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="control-label col-md-2"> <b>Компания</b></div>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.CompanyId)
-            @Html.ValidationMessageFor(model => model.CompanyId)
+            <input type="text" name="CompanyId" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Сохранить" class="btn btn-default" />
         </div>
     </div>
 </div>

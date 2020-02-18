@@ -37,9 +37,9 @@ namespace WebAppEmp.Controllers
             using(SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "INSERT INTO Companies VALUES(@Name, @Size, @Form)";
+                string query = "INSERT INTO Companies VALUES(@CompanyName, @Size, @Form)";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.Parameters.AddWithValue("@Name", companyModel.Name);
+                sqlCmd.Parameters.AddWithValue("@CompanyName", companyModel.CompanyName);
                 sqlCmd.Parameters.AddWithValue("@Size", companyModel.Size);
                 sqlCmd.Parameters.AddWithValue("@Form", companyModel.Form);
                 sqlCmd.ExecuteNonQuery();
@@ -63,7 +63,7 @@ namespace WebAppEmp.Controllers
             if(dtblCompany.Rows.Count == 1)
             {
                 companyModel.CompanyId = Convert.ToInt32(dtblCompany.Rows[0][0].ToString());
-                companyModel.Name = dtblCompany.Rows[0][1].ToString();
+                companyModel.CompanyName = dtblCompany.Rows[0][1].ToString();
                 companyModel.Size = Convert.ToInt32(dtblCompany.Rows[0][2].ToString());
                 companyModel.Form = dtblCompany.Rows[0][3].ToString();
                 return View(companyModel);
@@ -80,10 +80,10 @@ namespace WebAppEmp.Controllers
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
                 sqlCon.Open();
-                string query = "UPDATE Companies SET Name=@Name, Size=@Size, Form=@Form WHERE CompanyId=@CompanyId";
+                string query = "UPDATE Companies SET CompanyName=@CompanyName, Size=@Size, Form=@Form WHERE CompanyId=@CompanyId";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.Parameters.AddWithValue("@CompanyId", companyModel.CompanyId);
-                sqlCmd.Parameters.AddWithValue("@Name", companyModel.Name);
+                sqlCmd.Parameters.AddWithValue("@CompanyName", companyModel.CompanyName);
                 sqlCmd.Parameters.AddWithValue("@Size", companyModel.Size);
                 sqlCmd.Parameters.AddWithValue("@Form", companyModel.Form);
                 sqlCmd.ExecuteNonQuery();

@@ -13,6 +13,6 @@ namespace WebAppEmp.Models
         public string Patronymic { get; set; }
         public DateTime StartDate { get; set; }
         public string Post { get; set; }
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
     }
 }

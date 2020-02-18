@@ -8,7 +8,7 @@ namespace WebAppEmp.Models
     public class CompanyModel
     {
         public int CompanyId { get; set; }
-        public string Name { get; set; }
+        public string CompanyName { get; set; }
         public int Size { get; set; }
         public string Form { get; set; }
 
