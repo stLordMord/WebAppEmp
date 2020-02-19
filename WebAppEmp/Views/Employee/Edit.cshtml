@@ -4,7 +4,7 @@
     ViewBag.Title = "Ввод работника";
 }
 
-<h2>Изменение</h2>
+<h2>Изменение</h2> <hr />
 
 @using (Html.BeginForm())
 {    
@@ -12,37 +12,37 @@
     @Html.HiddenFor(model => model.EmployeeId)
 
     <div class="form-group">
-        <div class="control-label col-md-2"> <b>Surname</b></div>
+        <div class="control-label col-md-2"> <b>Фамилия</b></div>
         <div class="col-md-10">
-            <input name="Surname" value="@Model.Surname" />
+            <input type="text" name="Surname" value="@Model.Surname" />
         </div>
     </div>
 
     <div class="form-group">
-        <div class="control-label col-md-2"> <b>Name</b></div>
+        <div class="control-label col-md-2"> <b>Имя</b></div>
         <div class="col-md-10">
-            <input name="Name" value="@Model.Name" />
+            <input type="text" name="Name" value="@Model.Name" />
         </div>
     </div>
 
     <div class="form-group">
-        <div class="control-label col-md-2"> <b>Patronymic</b></div>
+        <div class="control-label col-md-2"> <b>Отчество</b></div>
         <div class="col-md-10">
-            <input name="Patronymic" value="@Model.Patronymic" />
+            <input type="text" name="Patronymic" value="@Model.Patronymic" />
         </div>
     </div>
 
     <div class="form-group">
         <div class="control-label col-md-2"> <b>Дата приема</b></div>
         <div class="col-md-10">
-            <input type="datetime" name="@Model.StartDate" />
+            <input type="date" name="StartDate" autocomplete="on" value="@Model.StartDate" min="2000-01-01"/>
         </div>
     </div>
 
     <div class="form-group">
         <div class="control-label col-md-2"> <b>Должность</b></div>
         <div class="col-md-10">
-            <select name="Post" autofocus="@Model.Post">
+            <select name="Post">
                 <option disabled>Выберите должность</option>
                 <option value="Разработчик ">Разработчик </option>
                 <option value="Тестировщик ">Тестировщик </option>
@@ -55,7 +55,12 @@
     <div class="form-group">
         <div class="control-label col-md-2"> <b>Компания</b></div>
         <div class="col-md-10">
-            <input type="text" name="CompanyId" />
+            <select name="CompanyName" >
+                @foreach (string company in ViewBag.Companies)
+                {
+                    <option>@company</option>
+                }
+            </select>
         </div>
     </div>
 
@@ -67,6 +72,6 @@
 </div>
 }
 
-<div>
+<div class="btn-link">
     @Html.ActionLink("Отмена", "Index")
 </div>

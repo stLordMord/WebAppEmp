@@ -1,9 +1,9 @@
 ﻿@model WebAppEmp.Models.CompanyModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ввод компании";
 }
 
-<h2>Ввод компании</h2> <hr />
+<h2>Добавление</h2> <hr />
 
 @using (Html.BeginForm())
 {
@@ -20,7 +20,7 @@
     <div class="form-group">
         <div class="control-label col-md-2"> <b>Размер</b></div>
         <div class="col-md-10">
-            <input type="number" name="Size" min="1" />
+            <input type="number" name="Size" min="1" value="1" />
         </div>
     </div>
 
@@ -41,13 +41,13 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Создать" class="btn btn-default" />
+            <input type="submit" value="Добавить" class="btn btn-default" />
         </div>
     </div>
 
 </div>
 }
 
-<div>
-    @Html.ActionLink("Отмена", "Index")
+<div class="btn-link">
+        @Html.ActionLink("Отмена", "Index")
 </div>

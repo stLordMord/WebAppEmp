@@ -1,9 +1,9 @@
 ﻿@model WebAppEmp.Models.EmployeeModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ввод работника";
 }
 
-<h2>Ввод работника</h2>
+<h2>Добавление</h2> <hr />
 
 @using (Html.BeginForm())
 {
@@ -12,35 +12,35 @@
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Фамилия</b></div>
             <div class="col-md-10">
-                <input type="text" name="Surname" />
+                <input type="text" name="Surname" required />
             </div>
         </div>
 
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Имя</b></div>
             <div class="col-md-10">
-                <input type="text" name="Name" />
+                <input type="text" name="Name" required/>
             </div>
         </div>
 
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Отчество</b></div>
             <div class="col-md-10">
-                <input type="text" name="Patronymic" />
+                <input type="text" name="Patronymic" required/>
             </div>
         </div>
 
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Дата приема</b></div>
             <div class="col-md-10">
-                <input type="date" name="Startdate" />
+                <input type="date" name="StartDate" required/>
             </div>
         </div>
 
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Должность</b></div>
             <div class="col-md-10">
-                <select name="Post">
+                <select name="Post" required>
                     <option disabled>Выберите должность</option>
                     <option value="Разработчик ">Разработчик </option>
                     <option value="Тестировщик ">Тестировщик </option>
@@ -53,7 +53,7 @@
         <div class="form-group">
             <div class="control-label col-md-2"> <b>Компания</b></div>
             <div class="col-md-10">
-                <select name="CompanyName">
+                <select name="CompanyId" required>
                     @foreach (string company in ViewBag.Companies)
                     {
                         <option>@company</option>
@@ -64,12 +64,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value="Добавить" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
+<div class="btn-link">
     @Html.ActionLink("Отмена", "Index")
 </div>

@@ -43,7 +43,7 @@ namespace WebAppEmp.Controllers
                 Reader.Close();
                 sqlCon.Close();
             }
-
+            //line.Substring(0, line.Length - 1);
             ViewBag.Companies = line.Split(',').ToList();
 
             return View(new EmployeeModel());
@@ -82,6 +82,7 @@ namespace WebAppEmp.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            string line = "";
             EmployeeModel epmloyeeModel = new EmployeeModel();
             DataTable dtblEmployee = new DataTable();
             using (SqlConnection sqlCon = new SqlConnection(connectionString))
@@ -91,7 +92,18 @@ namespace WebAppEmp.Controllers
                 SqlDataAdapter sqlDA = new SqlDataAdapter(query, sqlCon);
                 sqlDA.SelectCommand.Parameters.AddWithValue(@"EmployeeId", id);
                 sqlDA.Fill(dtblEmployee);
+
+                string query1 = "Select CompanyName From Companies";
+                SqlCommand sqlCmd = new SqlCommand(query1, sqlCon);
+                SqlDataReader Reader = sqlCmd.ExecuteReader();
+                while (Reader.Read())
+                {
+                    string s = Reader.GetString(0);
+                    line += s + ',';
+                }
+                Reader.Close();
             }
+            ViewBag.Companies = line.Split(',').ToList();
             if (dtblEmployee.Rows.Count == 1)
             {
                 epmloyeeModel.EmployeeId = Convert.ToInt32(dtblEmployee.Rows[0][0].ToString());

@@ -1,6 +1,11 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('image/backgr.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,6 +21,9 @@
     white-space: normal;
 }
 
+.btn-link{
+    font-size: large;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
